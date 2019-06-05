@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="{{url_for('static', filename= 'favicon.ico')}}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static', filename= 'apple-touch-icon.png')}}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename= 'favicon-32x32.png')}}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename= 'favicon-16x16.png')}}">
+        <link rel="manifest" href="{{url_for('static', filename= 'site.webmanifest')}}">
+    
+    <title>Drive Curve | ML App</title>
+  </head>
+  <body>
+
+      <div class="jumbotron">
+
+          <div class = "container">
+        <h1 class="display-4"> <img src="{{url_for('static', filename= 'android-chrome-192x192.png')}}" > Drive Curve | Machine Learning App  </h1>
+        <br>
+        <br>
+        <p class="lead">This is a web application made with the help of Flask, a microframework for Python based on Werkzeug, Jinja 2, 
+          and good intentions. On the backend, a Machine Learning model is used for predicting the price of the car. 
+          The machine learning model was trained on the Automobile Dataset from the UCI Machine Learning Repository. </p>
+          
+        <hr class="my-4">
+        <p>Using the dropdown list below, select the approximate values for each feature and hit the submit button. 
+          The features will then be forwarded to the machine learning model to evaluation. 
+          For more projects like these, just click on the Github Portfolio button. </p>
+        <a class="btn btn-primary btn-lg" href="https://chitralputhran.github.io/" role="button">GitHub Portfolio</a>
+        </div>
+        </div>
+      
+
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+    <p class="font-weight-bold">Input Features:</p>
+    <form action="{{ url_for('predict')}}" method="post">
+      <div class="row">
+          <div class="col-sm">
+
+          <label for="inputMake">Make</label>
+          <select id="inputMake" name="inputMk" class="form-control" required>
+            <option value="" disabled selected>Select Value</option>
+            <option value="alfa-romero">Alfa Romero</option>
+            <option value="audi">Audi</option>
+            <option value="bmw">BMW</option>
+            <option value="chevrolet">Chevrolet</option>
+          <option value="dodge">Dodge</option>
+          <option value="honda">Honda</option>
+          <option value="isuzu">Isuzu</option>
+          <option value="jaguar">Jaguar</option>
+          <option value="mazda">Mazda</option>
+          <option value="mercedes-benz">Mercedes Benz</option>
+          <option value="mercury">Mercury</option>
+          <option value="mitsubishi">Mitsubishi</option>
+          <option value="nissan">Nissan</option>
+          <option value="peugot">Peugot</option>
+          <option value="plymouth">Plymouth</option>
+          <option value="porsche">Porsche</option>
+          <option value="renault">Renault</option>
+          <option value="saab">Saab</option>
+          <option value="subaru">Subaru</option>
+          <option value="toyota">Toyota</option>
+          <option value="volkswagen">Volkswagen</option>
+          <option value="volvo">Volvo</option>
+        </select>
+    <br>
+    
+    
+    <label for="inputFt" >Fuel Type</label>
+    <select id="inputFt"  name="inputFt" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="gas">Gas</option>
+      <option value="diesel">Diesel</option>
+  </select>
+    <br>
+
+    <label for="inputAs" >Aspiration</label>
+    <select id="inputAs" name="inputAs" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="std">Standard</option>
+      <option value="turbo">Turbocharger</option>
+  </select>
+    <br>
+
+    <label for="inputNd" >Number of Doors</label>
+    <select id="inputNd" name="inputNd" class="form-control" required>
+      <option  value="" disabled selected>Select Value</option>
+      <option value="two">Two</option>
+      <option value="four">Four</option>
+  </select>
+    <br>
+
+    <label for="inputBs" >Body Style</label>
+    <select id="inputBs" name="inputBs" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="convertible">Convertible</option>
+      <option value="hatchback">Hatchback</option>
+      <option value="sedan">Sedan</option>
+      <option value="wagon">Wagon</option>
+      <option value="hardtop">Hardtop</option>
+  </select>
+    <br>
+
+    <label for="inputNc" >Number of Cylinders</label>
+    <select id="inputNc" name="inputNc" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="two">Two</option>
+      <option value="three">Three</option>
+      <option value="four">Four</option>
+      <option value="five">Five</option>
+      <option value="six">Six</option>
+      <option value="eight">Eight</option>
+      <option value="twelve">Twelve</option>
+  </select>
+    <br>
+
+    <label for="inputEt" >Engine Type</label>
+    <select id="inputEt" name="inputEt" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="dohc">DOHC</option>
+      <option value="ohcv">OHCV</option>
+      <option value="ohc">OHC</option>
+      <option value="l">Inline</option>
+      <option value="rotor">Rotor</option>
+      <option value="ohcf">OHCF</option>
+      <option value="dohcv">DOHCV</option>
+  </select>
+    <br>
+    
+
+   
+    <label for="inputEl" >Engine Location</label>
+    <select id="inputEl" name="inputEl" class="form-control" required>
+      <option value="" disabled selected>Select Value</option>
+      <option value="front">Front</option>
+      <option value="rear">Rear</option>
+  </select>
+
+  <br>
+</div>
+
+<div class="col-sm">
+  <label for="inputFs" >Fuel System</label>
+  <select id="inputFs"  name="inputFs"  class="form-control" required>
+    <option value="" disabled selected>Select Value</option>
+    <option value="mpfi">MPFI</option>
+    <option value="2bbl">2BBL</option>
+    <option value="mfi">MFI</option>
+    <option value="1bbl">1BBL</option>
+    <option value="spfi">SPFI</option>
+    <option value="4bbl">4BBL</option>
+    <option value="idi">IDI</option>
+    <option value="spdi">SPDI</option>
+</select>
+
+<br>
+
+<label for="inputDw" >Drive Wheels</label>
+<select id="inputDw" name="inputDw" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="rwd">RWD</option>
+  <option value="fwd">FWD</option>
+  <option value="4wd">4WD</option>
+</select>
+
+<br>
+
+<label for="inputWb" >Wheel Base (inches)</label>
+<select id="inputWb" name="inputWb" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="85.5">80.00 - 90.00</option>
+  <option value="95.5">91.00 - 100.00</option>
+  <option value="105.5">101.00 - 110.00</option>
+  <option value="115.5">111.00 - 120.00</option>
+</select>
+
+<br>
+
+<label for="inputLn" >Length (inches)</label>
+<select id="inputLn" name="inputLn" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="145.5">140.00 - 150.00</option>
+  <option value="155.5">151.00 - 160.00</option>
+  <option value="165.5">161.00 - 170.00</option>
+  <option value="175.5">171.00 - 180.00</option>
+  <option value="185.5">181.00 - 190.00</option>
+  <option value="195.5">191.00 - 200.00</option>
+  <option value="205.5">201.00 - 210.00</option>
+</select>
+
+<br>
+
+<label for="inputWd" >Width (inches)</label>
+<select id="inputWd" name="inputWd" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="61.00">60.00 - 62.00</option>
+  <option value="64.00">63.00 - 65.00</option>
+  <option value="67.00">66.00 - 68.00</option>
+  <option value="70.00">69.00 - 71.00</option>
+  <option value="73.00">72.00 - 74.00</option>
+</select>
+
+<br>
+<label for="inputHt" >Height (inches)</label>
+<select id="inputHt" name="inputHt" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="48.00">47.00 - 49.00</option>
+  <option value="51.00">50.00 - 52.00</option>
+  <option value="54.00">53.00 - 55.00</option>
+  <option value="57.00">56.00 - 58.00</option>
+  <option value="60.00">59.00 - 61.00</option>
+</select>
+
+<br>
+<label for="inputCw" >Curb Weight (lbs)</label>
+<select id="inputCw" name="inputCw" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="1672.00">1488.00 - 1856.00</option>
+  <option value="2040.00">1857.00 - 2224.00</option>
+  <option value="2408.50">2225.00 - 2592.00</option>
+  <option value="2777.00">2593.00 - 2961.00</option>
+  <option value="3145.50">2962.00 - 3329.00</option>
+  <option value="3513.50">3330.00 - 3697.00</option>
+  <option value="3882.00">3698.00 - 4066.00</option>
+</select>
+
+<br>
+
+</div>
+
+<div class="col-sm">
+
+<label for="inputEs" >Engine Size (cubic inches)</label>
+<select id="inputEs" name="inputEs" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="75.72">61.00 - 90.00</option>
+  <option value="105.66">91.00 - 119.00</option>
+  <option value="134.66">120.00 - 149.00</option>
+  <option value="164.50">150.00 - 178.00</option>
+  <option value="194.00">179.00 - 208.00</option>
+  <option value="223.50">209.00 - 237.00</option>
+  <option value="252.66">238.00 - 267.00</option>
+  <option value="282.16">268.00 - 296.00</option>
+  <option value="311.66">297.00 - 326.00</option>
+</select>
+
+<br>
+
+<label for="inputBr" >Bore (inches)</label>
+<select id="inputBr" name="inputBr" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="2.715">2.54 - 2.89</option>
+  <option value="3.065">2.90 - 3.24</option>
+  <option value="3.415">3.25 - 3.59</option>
+  <option value="3.764">3.60 - 4.00</option>
+</select>
+
+<br>
+
+<label for="inputSk" >Stroke (inches)</label>
+<select id="inputSk" name="inputSk" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="2.275">2.00 - 2.55</option>
+  <option value="2.825">2.56 - 3.10</option>
+  <option value="3.375">3.11 - 3.65</option>
+  <option value="3.925">3.66 - 4.20</option>
+</select>
+
+<br>
+
+<label for="inputCr" >Compression Ratio</label>
+<select id="inputCr" name="inputCr" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="8.77">7.00 - 8.77</option>
+  <option value="9.66">8.78 - 10.55</option>
+  <option value="11.44">10.56 - 12.33</option>
+  <option value="13.22">12.33 - 14.11</option>
+  <option value="15.00">14.12 - 15.88</option>
+  <option value="16.77">15.89 - 17.66</option>
+  <option value="18.55">17.67 - 19.44</option>
+  <option value="20.33">19.45 - 21.22</option>
+  <option value="22.11">21.23 - 23.00</option>
+</select>
+
+<br>
+
+<label for="inputHp" >Horsepower (hp)</label>
+<select id="inputHp" name="inputHp" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="61.33">48.00 - 74.66</option>
+  <option value="88.00">74.67 - 101.00</option>
+  <option value="114.66">102.00 - 128.00</option>
+  <option value="141.33">129.00 - 154.00</option>
+  <option value="168.00">155.00 - 181.00</option>
+  <option value="194.66">182.00 - 208.00</option>
+  <option value="221.33">208.00 - 234.00</option>
+  <option value="248.00">234.00 - 261.00</option>
+  <option value="274.66">261.33 - 288.00</option>
+</select>
+  
+<br>
+
+<label for="inputPr" >Peak RPM</label>
+<select id="inputPr" name="inputPr" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="4286.00">4150.00 - 4422.00</option>
+  <option value="4558.00">4423.00 - 4694.00</option>
+  <option value="4830.00">4695.00 - 4966.00</option>
+  <option value="5102.00">4967.00 - 5238.00</option>
+  <option value="5375.00">5239.00 - 5511.00</option>
+  <option value="5647.00">5512.00 - 5783.00</option>
+  <option value="5919.00">5784.00 - 6055.00</option>
+  <option value="6191.00">6056.00 - 6327.00</option>
+  <option value="6463.00">6328.00 - 6600.00</option>
+</select>
+
+    <br>
+
+  <label for="inputCm" >City MPG</label>
+  <select id="inputCm" name="inputCm" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="15.0">13.00 - 17.00</option>
+  <option value="19.00">18.00 - 21.00</option>
+  <option value="23.00">22.00 - 25.00</option>
+  <option value="27.00">26.00 - 29.00</option>
+  <option value="31.00">30.00 - 33.00</option>
+  <option value="35.00">34.00 - 37.00</option>
+  <option value="39.00">38.00 - 41.00</option>
+  <option value="43.00">42.00 - 45.00</option>
+  <option value="47.00">46.00 - 49.00</option>
+</select>
+
+<br>
+<label for="inputHm" >Highway MPG</label>
+<select id="inputHm" name="inputHm" class="form-control" required>
+  <option value="" disabled selected>Select Value</option>
+  <option value="18.0">16.00 - 20.00</option>
+  <option value="23.00">21.00 - 24.00</option>
+  <option value="26.00">25.00 - 28.00</option>
+  <option value="30.00">29.00 - 32.00</option>
+  <option value="31.00">30.00 - 33.00</option>
+  <option value="38.00">37.00 - 40.00</option>
+  <option value="42.00">41.00 - 44.00</option>
+  <option value="46.00">45.00 - 48.00</option>
+  <option value="50.00">49.00 - 52.00</option>
+  <option value="54.00">53.00 - 55.00</option>
+</select>
+   
+</div>
+</div>
+    <br>
+    <button class="btn btn-success  btn-block" value='submit' type="submit">Submit</button>
+    </form>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="page-footer">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+          <a href="https://chitralputhran.github.io"> Chitral Puthran</a>
+        </div>
+        <!-- Copyright -->
+      
+      </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
